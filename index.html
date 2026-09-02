@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Group 2 Multi-Subject MCQ App</title>
+  <title>APPSC Group 2 Multi-Subject Quiz</title>
   <style>
     body { font-family: Arial, sans-serif; background-color: #f4f6f9; display: flex; flex-direction: column; align-items: center; padding: 20px; margin: 0; }
     
-    /* Top Subject Tabs */
+    /* Subject Tabs */
     .subject-tabs { display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; justify-content: center; width: 100%; max-width: 850px; }
     .tab-btn { padding: 10px 18px; border: 1px solid #007bff; background-color: #fff; color: #007bff; border-radius: 20px; cursor: pointer; font-weight: bold; font-size: 14px; transition: 0.3s; }
     .tab-btn:hover, .tab-btn.active-tab { background-color: #007bff; color: white; }
@@ -67,7 +67,11 @@
   </div>
 </div>
 
-<script src="questions.js"></script>
+<!-- 4 Separate Subject Files linked here -->
+<script src="apHistory.js"></script>
+<script src="polity.js"></script>
+<script src="scienceTech.js"></script>
+<script src="economy.js"></script>
 
 <script>
   let currentSubject = 'apHistory';
@@ -102,8 +106,13 @@
   }
 
   function loadQuestions() {
-    if (typeof categoryQuestions !== 'undefined' && categoryQuestions[currentSubject]) {
-      questions = categoryQuestions[currentSubject];
+    // Select array based on active subject
+    if (currentSubject === 'apHistory') questions = typeof apHistoryQuestions !== 'undefined' ? apHistoryQuestions : [];
+    else if (currentSubject === 'indianPolity') questions = typeof polityQuestions !== 'undefined' ? polityQuestions : [];
+    else if (currentSubject === 'scienceTech') questions = typeof scienceTechQuestions !== 'undefined' ? scienceTechQuestions : [];
+    else if (currentSubject === 'indianEconomy') questions = typeof economyQuestions !== 'undefined' ? economyQuestions : [];
+
+    if (questions.length > 0) {
       userAnswers = new Array(questions.length).fill(null);
       renderPalette();
       showQuestion();
